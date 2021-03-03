@@ -69,5 +69,7 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config server/environments/database.ts"
+
 }
