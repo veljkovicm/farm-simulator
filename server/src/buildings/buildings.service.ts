@@ -13,12 +13,6 @@ export class BuildingService {
     private readonly buildingRepository: Repository<Building>
   ) {}
 
-  async addFarm(name: string) {
-    const farm = await this.buildingRepository.create({ name });
-
-    return this.buildingRepository.save(farm);
-  }
-
   async createFarmBuilding(
     farmId: string,
     name: string,
@@ -35,10 +29,12 @@ export class BuildingService {
     return this.buildingRepository.save(building);
   }
 
-  async getProducts() {
-    const farms = await this.buildingRepository.find();
+  async getBuildings(farmId) {
+    const farms = await this.buildingRepository.find({
+      where: { farmId },
+      relations: ['units']
+    });
 
-    console.log(farms);
     return farms;
   }
 
