@@ -5,20 +5,30 @@ import {
  Body,
  Get,
  Param,
+ Query,
 } from '@nestjs/common';
+import * as _ from 'lodash';
 
 @Controller('building')
 export class BuildingController {
   constructor(private readonly buildingService: BuildingService) {}
 
   @Post()
-  async addBuilding(@Body('name') name: string) {
-    return this.buildingService.addFarm(name);
+  async createFarmBuilding(
+    @Body('farmId') farmId: string,
+    @Body('name') name: string,
+    @Body('farmUnit') farmUnit: string,
+  ) {
+
+    return this.buildingService.createFarmBuilding(farmId, name, farmUnit);
   }
 
   @Get()
-  async getAllFarmBuildings() {
-    return this.buildingService.getProducts();
+  async getAllFarmBuildings(@Query('id') farmId: string) {
+    const buildings =  await this.buildingService.getBuildings(farmId);
+
+    return _.keyBy(buildings, 'id');
+
   }
 
   @Get('/units/:id')
@@ -27,12 +37,5 @@ export class BuildingController {
     return units;
   }
 
-  @Post('/building')
-  async createFarmBuilding(
-    @Body('farmId') farmId: string,
-    @Body('name') name: string,
-    @Body('farmUnit') farmUnit: string,
-  ) {
-    return this.buildingService.createFarmBuilding(farmId, name, farmUnit);
-  }
+  
 }

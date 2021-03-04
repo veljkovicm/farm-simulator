@@ -22,8 +22,8 @@ export class UnitsController {
     return products;
   }
 
-  @Patch(':id')
-  feedUnit(@Param('id') unitId: string) {
+  @Patch()
+  feedUnit(@Body('id') unitId: string) {
     return this.unitsService.feedUnit(unitId);
   }
 }
