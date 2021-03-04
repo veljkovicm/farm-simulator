@@ -44,8 +44,8 @@ export class UnitsService {
     console.log(unit.health);
 
     unit.health++;
+    unit.lastFedTime = new Date();
     return this.unitsRepository.save(unit);
-    // check if it makes more sense to use .preload instead
 
     // if !unit return 'unit not found'
 
