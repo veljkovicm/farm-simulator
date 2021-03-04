@@ -5,7 +5,7 @@ import { setFarms } from '../redux/actions/main';
 import { API } from '../libs'
 
 import AddFarmInput from '../components/AddFarmInput/AddFarmInput';
-import FarmList from '../components/FarmList/FarmList';
+import FarmList from '../components/FarmList';
 
 import { useEffect } from 'react';
 
