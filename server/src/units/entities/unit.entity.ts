@@ -2,7 +2,7 @@ import { Building } from 'src/buildings/entities/building.entity';
 import { Farm } from 'src/farms/entities/farm.entity';
 import { getRandomHealth } from 'src/helpers/helpers';
 import {
- Column, Entity, ManyToOne, PrimaryGeneratedColumn, 
+ Column, Entity, ManyToOne, PrimaryGeneratedColumn, BeforeInsert
 } from 'typeorm';
 
 @Entity('units')
@@ -21,7 +21,7 @@ export class Unit {
   @Column()
   name: string;
 
-  @Column({ default: getRandomHealth() })
+  @Column()
   health: number;
 
   @Column({ name: 'last_fed_time', default: () => 'CURRENT_TIMESTAMP' })
@@ -29,4 +29,15 @@ export class Unit {
 
   @Column({ default: 1 })
   status: number;
+
+  @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @BeforeInsert()
+  setId() {
+    this.health = getRandomHealth();
+  }
+
+
 }
+
