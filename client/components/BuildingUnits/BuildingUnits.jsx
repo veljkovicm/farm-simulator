@@ -11,7 +11,9 @@ const BuildingUnits = ({ units, feedUnit }) => {
 
   const handleClick = async (id, i) => {
     submitFeedUnit(id).then((res) => {
-      feedUnit({ index: i, unit: res })
+      if(!res.error) {
+        feedUnit({ index: i, unit: res })
+      }
     });
   }
 

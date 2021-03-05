@@ -23,7 +23,7 @@ export class UnitsController {
   }
 
   @Patch()
-  feedUnit(@Body('id') unitId: string) {
+  async feedUnit(@Body('id') unitId: string) {
     return this.unitsService.feedUnit(unitId);
   }
 }

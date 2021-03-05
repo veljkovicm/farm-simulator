@@ -41,7 +41,11 @@ export class UnitsService {
 
   async feedUnit(id: string) {
     const unit = await this.unitsRepository.findOne(id);
-    console.log(unit.health);
+    const secSinceLastFed = (new Date().getTime() - unit.lastFedTime.getTime()) / 1000;
+
+    if(secSinceLastFed <= 5) {
+      return { error: 'Units can only be fed once every 5 seconds.'}
+    }
 
     unit.health++;
     unit.lastFedTime = new Date();
