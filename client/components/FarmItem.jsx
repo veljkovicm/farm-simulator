@@ -5,10 +5,7 @@ const FarmItem = ({ farm }) => {
 
   return (
       <Link href="/farm/[id]" as={`/farm/${farm.id}`}>
-        <a>
-          <h4>Name: {farm.name} &rarr;</h4>
-          <span>ID: {farm.id}</span>
-        </a>
+        <a>{farm.name}</a>
       </Link>
 
   )

@@ -10,31 +10,28 @@ import BuildingUnits from './BuildingUnits/BuildingUnits';
 const BuildingList = ({ buildings }) => {
   const classes = useStyles();
 
-  return (
-    <>
-      {
-        Object.values(buildings).map((building) => {
-          return <Accordion key={building.id}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography className={classes.heading}>{building.name}</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <BuildingDetails building={building} />
-              
-            </AccordionDetails>
-            <AccordionDetails>
-              <BuildingUnits units={building.units} />
-            </AccordionDetails>
-          </Accordion>
-        
-        })
-      }
-    </>
-  )
+  let buildingsMarkup = 'This farm doesn\'t have any buildings yet';
+
+  if(Object.keys(buildings).length) {
+    buildingsMarkup = Object.values(buildings).map((building) => {
+      return <Accordion key={building.id}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography className={classes.heading}>{building.name}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <BuildingDetails building={building} />
+        </AccordionDetails>
+        <AccordionDetails>
+          <BuildingUnits units={building.units} />
+        </AccordionDetails>
+      </Accordion>
+    })
+  }
+  return buildingsMarkup;
 }
 
 

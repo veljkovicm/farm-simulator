@@ -22,20 +22,39 @@ const AddBuildingInput = ({ addBuilding, farmId }) => {
       farmUnit,
     })
     .then((res) => {
-
       addBuilding(res);
       setName('');
-      setUnitName('');
+      setFarmUnit('');
     });
 
   }
 
   return (
-    <div>
-      <form >
-        <TextField id="standard-basic" label="Building name" value={name} onChange={handleChange(setName)} />
-        <TextField id="standard-basic" label="Farm unit name" value={farmUnit} onChange={handleChange(setFarmUnit)} />
-        <Button variant="contained" color="primary"  onClick={handleSubmit}>Add new building</Button>
+    <div style={{ marginBottom: '20px'}}>
+      <form>
+        <TextField
+          id="standard-basic"
+          label="Building name"
+          value={name}
+          onChange={handleChange(setName)}
+          style={{ marginRight: '40px'}}
+        />
+        <TextField
+          id="standard-basic"
+          label="Farm unit name"
+          value={farmUnit}
+          onChange={handleChange(setFarmUnit)}
+          style={{ marginRight: '40px'}}
+        />
+        <Button
+          variant="contained"
+          color="primary" 
+          onClick={handleSubmit}
+          style={{ marginTop: '10px'}}
+          disabled={!name || !farmUnit}
+        >
+          Add new building
+        </Button>
       </form>
     </div>
   )

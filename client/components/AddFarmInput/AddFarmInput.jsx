@@ -6,7 +6,6 @@ import { submitFarm } from './actions';
 import { useState } from 'react';
 
 const AddFarmInput = ({ addFarm }) => {
-
   const [ name, setName ] = useState('');
 
   const handleChange = (e) => {
@@ -29,7 +28,7 @@ const AddFarmInput = ({ addFarm }) => {
 
   return (
     <div>
-      <form >
+      <form  style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
         <TextField id="standard-basic" label="Farm name" value={name} onChange={handleChange} />
         <Button variant="contained" color="primary"  onClick={handleSubmit}>Add Farm</Button>
       </form>

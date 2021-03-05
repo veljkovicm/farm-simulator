@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { API } from '../../../libs';
+import styles from '../../../styles/Farm.module.css';
 import { useEffect } from 'react';
 import { setBuildings } from '../../../redux/actions/buildings';
 import { connect } from 'react-redux';
@@ -15,7 +16,7 @@ const Farm = ({ fetchedBuildings, setBuildings, buildings, farmId }) => {
   }, []);
 
   return (
-    <div>
+    <div className={styles.container}>
       <AddFarmBuilding farmId={farmId} />
       <BuildingsList buildings={buildings} />
     </div>
