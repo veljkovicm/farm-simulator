@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Between, In, Repository } from 'typeorm';
 import { Building } from 'src/buildings/entities/building.entity';
 import { Cron } from '@nestjs/schedule';
+import { FarmUnitStatus } from '../contants';
 
 @Injectable()
 export class UnitsService {
@@ -43,6 +44,7 @@ export class UnitsService {
 
   async feedUnit(id: string) {
     const unit = await this.unitsRepository.findOne(id);
+
     const secSinceLastFed = (new Date().getTime() - unit.lastFedTime.getTime()) / 1000;
 
     if(secSinceLastFed <= 5) {
@@ -53,12 +55,6 @@ export class UnitsService {
     unit.lastFedTime = new Date();
     return this.unitsRepository.save(unit);
 
-    // if !unit return 'unit not found'
-
-    // if unit.status === dead return 'cannot feed a dead unit'
-    // if unit.health === 100 return this unit is already at max health
-
-    // custom decorator?
 
     // use: throw new NotFoundException('error message' )
   }
@@ -75,12 +71,19 @@ export class UnitsService {
       .map(({ id }) => id);
 
 
-    return this.unitsRepository
+    await this.unitsRepository
       .createQueryBuilder()
       .update()
       .set({ lastFedTime: new Date(), health: () => "health - 1" })
       .where({ id: In(unitIds), health: Between(1, 100)})
-      .execute()
+      .execute();
 
+
+    return this.unitsRepository
+      .createQueryBuilder()
+      .update()
+      .set({ status: FarmUnitStatus.DEAD })
+      .where({ health: 0 })
+      .execute();
   }
 }
