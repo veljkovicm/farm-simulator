@@ -59,6 +59,13 @@ export class FarmsService {
       })
       .map(({ id }) => id);
 
+    await this.farmsRepository
+      .createQueryBuilder()
+      .update()
+      .set({ lastFedTime: new Date()})
+      .where({ id: In(farmIds) })
+      .execute();
+
     return this.unitsRepository
       .createQueryBuilder()
       .update()
