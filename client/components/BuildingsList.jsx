@@ -9,7 +9,6 @@ import BuildingUnits from './BuildingUnits/BuildingUnits';
 
 const BuildingList = ({ buildings }) => {
   const classes = useStyles();
-
   let buildingsMarkup = 'This farm doesn\'t have any buildings yet';
 
   if(Object.keys(buildings).length) {
@@ -29,7 +28,7 @@ const BuildingList = ({ buildings }) => {
           <BuildingUnits units={building.units} />
         </AccordionDetails>
       </Accordion>
-    })
+    });
   }
   return buildingsMarkup;
 }

@@ -1,9 +1,9 @@
+import { useState } from 'react';
+import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
 import { addBuilding } from '../../redux/actions/buildings';
 import { submitNewBuilding } from './actions';
-import { useState } from 'react';
 
 const AddBuildingInput = ({ addBuilding, farmId }) => {
 
@@ -59,12 +59,8 @@ const AddBuildingInput = ({ addBuilding, farmId }) => {
   )
 }
 
-
-
 const mapDispatchToProps = {
   addBuilding: addBuilding
 }
-
-
 
 export default connect(null, mapDispatchToProps)(AddBuildingInput);

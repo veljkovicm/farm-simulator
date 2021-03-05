@@ -19,7 +19,6 @@ export class BuildingController {
     @Body('name') name: string,
     @Body('farmUnit') farmUnit: string,
   ) {
-
     return this.buildingService.createFarmBuilding(farmId, name, farmUnit);
   }
 
@@ -28,14 +27,10 @@ export class BuildingController {
     const buildings =  await this.buildingService.getBuildings(farmId);
 
     return _.keyBy(buildings, 'id');
-
   }
 
   @Get('/units/:id')
   async getBuildingUnits(@Param('id') buildingId: string) {
-    const units = await this.buildingService.getBuildingFarmUnits(buildingId);
-    return units;
+    return this.buildingService.getBuildingFarmUnits(buildingId);
   }
-
-  
 }

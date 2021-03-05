@@ -1,15 +1,13 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css';
+import Head from 'next/head';
 import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import styles from '../styles/Home.module.css';
 import { setFarms } from '../redux/actions/main';
-import { API } from '../libs'
-
+import { API } from '../libs';
 import AddFarmInput from '../components/AddFarmInput/AddFarmInput';
 import FarmList from '../components/FarmList';
 
-import { useEffect } from 'react';
-
-const  Home = (props) => {
+const Home = (props) => {
   const {
     fetchedFarms,
     setFarms,
@@ -18,7 +16,7 @@ const  Home = (props) => {
 
   useEffect(() => {
     setFarms(fetchedFarms);
-  }, [])
+  }, [fetchedFarms, setFarms]);
 
   return (
     <div className={styles.container}>
@@ -32,26 +30,25 @@ const  Home = (props) => {
         <FarmList farms={farms} />
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 const mapStateToProps = (state) => ({
   farms: state.main.farms,
 });
 
 const mapDispatchToProps = {
-  setFarms: setFarms
-}
+  setFarms,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
 
 export const getStaticProps = async () => {
-  const { data: fetchedFarms} = await API({ method: 'GET', path: 'farms'});
+  const { data: fetchedFarms } = await API({ method: 'GET', path: 'farms' });
 
   return {
     props: {
-      fetchedFarms
-    }
-  }
-}
+      fetchedFarms,
+    },
+  };
+};

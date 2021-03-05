@@ -11,16 +11,16 @@ export const addBuilding = (building) => ({
     ...building,
     units: [],
   },
-})
+});
 
 export const addUnit = (unit) => ({
   type: t.ADD_UNIT,
-  payload: unit
+  payload: unit,
 });
 
 export const feedUnit = (data) => ({
   type: t.FEED_UNIT,
   payload: {
-    ...data
-  }
+    ...data,
+  },
 });

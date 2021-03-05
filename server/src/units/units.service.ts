@@ -56,13 +56,11 @@ export class UnitsService {
 
     unit.health++;
     unit.lastFedTime = new Date();
+
     return this.unitsRepository.save(unit);
-
-
-    // use: throw new NotFoundException('error message' )
   }
 
-  // @Cron('* * * * * *')
+  @Cron('* * * * * *')
   async handleStarwing() {
     const units = await this.unitsRepository.find();
 
@@ -72,7 +70,6 @@ export class UnitsService {
         return secSinceLastFed > 10;
       })
       .map(({ id }) => id);
-
 
     await this.unitsRepository
       .createQueryBuilder()

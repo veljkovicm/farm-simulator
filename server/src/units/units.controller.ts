@@ -1,5 +1,10 @@
 import {
- Controller, Post, Body, Get, Param, Patch, 
+ Controller,
+ Post,
+ Body,
+ Get,
+ Param,
+ Patch, 
 } from '@nestjs/common';
 import { UnitsService } from './units.service';
 
@@ -11,15 +16,12 @@ export class UnitsController {
   async addUnit(
     @Body('buildingId') buildingId: string
   ) {
-    const unit = await this.unitsService.addUnit(buildingId);
-
-    return unit;
+    return this.unitsService.addUnit(buildingId);
   }
 
   @Get(':id')
   async getUnits(@Param('id') buildingId: string) {
-    const products = await this.unitsService.getUnits(buildingId);
-    return products;
+    return this.unitsService.getUnits(buildingId);
   }
 
   @Patch()

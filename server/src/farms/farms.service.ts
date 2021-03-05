@@ -29,7 +29,7 @@ export class FarmsService {
   async getFarms() {
     return this.farmsRepository.find({
       order: {
-        createdAt: 'DESC'
+        createdAt: 'DESC',
       },
     });
   }
@@ -38,7 +38,7 @@ export class FarmsService {
     const farm = await this.farmsRepository.findOne(farmId, {
       relations: ['buildings'],
       order: {
-        createdAt: 'DESC'
+        createdAt: 'DESC',
       },
     });
 
@@ -48,7 +48,7 @@ export class FarmsService {
     return farm;
   }
 
-  // @Cron('* * * * * *')
+  @Cron('* * * * * *')
   async handleFarmFeeding() {
     const farms = await this.farmsRepository.find();
 

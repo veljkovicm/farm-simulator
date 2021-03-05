@@ -1,13 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Building } from './entities/building.entity';
 
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class BuildingService {
-  private products: Building[] = [];
-
   constructor(
     @InjectRepository(Building)
     private readonly buildingRepository: Repository<Building>
@@ -16,7 +14,7 @@ export class BuildingService {
   async createFarmBuilding(
     farmId: string,
     name: string,
-    farmUnit: string // add DTOs?
+    farmUnit: string,
   ) {
     const building = this.buildingRepository.create({
       farmId,
@@ -31,24 +29,24 @@ export class BuildingService {
     const farms = await this.buildingRepository.find({
       where: { farmId },
       order: {
-        createdAt: 'DESC'
+        createdAt: 'DESC',
       },
-      relations: ['units']
+      relations: ['units'],
     });
 
     return farms;
   }
 
-  async getBuildingFarmUnits(productId: string) {
-    const building = await this.buildingRepository.findOne(productId, {
+  async getBuildingFarmUnits(buildingId: string) {
+    const building = await this.buildingRepository.findOne(buildingId, {
       relations: ['units'],
       order: {
-        createdAt: 'DESC'
+        createdAt: 'DESC',
       },
     });
 
     if (!building) {
-      throw new NotFoundException(`Farm ${productId} not found`);
+      throw new NotFoundException(`Farm ${buildingId} not found`);
     }
     return building;
   }

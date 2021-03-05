@@ -2,7 +2,11 @@ import { Building } from 'src/buildings/entities/building.entity';
 import { Farm } from 'src/farms/entities/farm.entity';
 import { getRandomHealth } from 'src/helpers/helpers';
 import {
- Column, Entity, ManyToOne, PrimaryGeneratedColumn, BeforeInsert
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  BeforeInsert,
 } from 'typeorm';
 
 @Entity('units')
@@ -40,4 +44,3 @@ export class Unit {
     this.health = getRandomHealth();
   }
 }
-

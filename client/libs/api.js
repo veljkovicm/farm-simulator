@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-const apiCall = async ({ method, path, headers = {}, body, params }) => {
+const apiCall = async ({
+  method,
+  path,
+  headers = {},
+  body,
+  params,
+}) => {
   try {
     const url = path;
 
@@ -36,6 +42,5 @@ const apiCall = async ({ method, path, headers = {}, body, params }) => {
     return { data, status };
   }
 };
-
 
 export default apiCall;

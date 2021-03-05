@@ -1,0 +1,59 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
+    "airbnb"
+  ],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": [],
+  "rules": {
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+
+    "object-curly-newline": ["error", { "minProperties": 3, "consistent": true }],
+    "max-len": ["error", { "code": 100, "ignoreStrings": true, "ignoreUrls": true, "ignoreTemplateLiterals": true, "ignoreComments": true }],
+    "array-bracket-spacing": [ "error", "always", { "arraysInArrays": false, "objectsInArrays": false, "singleValue": false } ],
+    "space-before-blocks": ["error", "always"],
+    "import/prefer-default-export": "off",
+    "linebreak-style": "off",
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-case-declarations": "off",
+    "comma-dangle": [
+      "error", // Minify git diffs
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ]
+  }
+}

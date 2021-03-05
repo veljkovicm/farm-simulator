@@ -2,25 +2,22 @@ import * as t from '../types';
 
 const buildings = (state = {
   buildings: {}, // change if bugs
-}, action ) => {
-  switch(action.type) {
+}, action) => {
+  switch (action.type) {
     case t.SET_BUILDINGS:
       return {
         buildings: action.payload,
       };
     case t.ADD_BUILDING:
-      console.log('state', action.payload);
       return {
         buildings: {
           [action.payload.id]: {
-            ...action.payload
+            ...action.payload,
           },
           ...state.buildings,
-        }
-      }
-      
+        },
+      };
     case t.ADD_UNIT:
-      const id = action.payload.buildingId;
       return {
         buildings: {
           ...state.buildings,
@@ -29,13 +26,13 @@ const buildings = (state = {
             units: [
               action.payload,
               ...state.buildings[action.payload.buildingId].units,
-            ]
-          }
-        }
-      }
+            ],
+          },
+        },
+      };
     case t.FEED_UNIT:
-      const buildingId = action.payload.unit.buildingId;
-      const index = action.payload.index;
+      const { buildingId } = action.payload.unit;
+      const { index } = action.payload;
       const updatedUnits = [...state.buildings[buildingId].units];
       updatedUnits[index] = action.payload.unit;
 
@@ -44,13 +41,13 @@ const buildings = (state = {
           ...state.buildings,
           [action.payload.unit.buildingId]: {
             ...state.buildings[action.payload.unit.buildingId],
-            units: [ ...updatedUnits ],
-          }
-        }
-      }
+            units: [...updatedUnits],
+          },
+        },
+      };
     default:
       return {
-        ...state
+        ...state,
       };
   }
 };
