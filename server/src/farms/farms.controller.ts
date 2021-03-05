@@ -16,15 +16,20 @@ export class FarmsController {
     return this.farmsService.addFarm(name);
   }
 
-  @Get()
-  async getAllFarms() {
-    const products = await this.farmsService.getFarms();
-    return products;
-  }
+  // @Get('feeding')
+  // async farmFeeding() {
+  //   return this.farmsService.handleFarmFeeding();
+  // }
 
   @Get(':id')
   async getProduct(@Param('id') farmId: string) {
     const product = await this.farmsService.getFarmBuildings(farmId);
     return product;
+  }
+
+  @Get()
+  async getAllFarms() {
+    const products = await this.farmsService.getFarms();
+    return products;
   }
 }

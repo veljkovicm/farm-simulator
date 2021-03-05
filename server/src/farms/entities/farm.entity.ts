@@ -1,4 +1,5 @@
 import { Building } from 'src/buildings/entities/building.entity';
+import { Unit } from 'src/units/entities/unit.entity';
 import {
  Column,
  Entity,
@@ -16,4 +17,10 @@ export class Farm {
 
   @OneToMany(() => Building, (building) => building.farmId)
   buildings: Building[];
+
+  @Column({ name: 'last_fed_time', default: () => 'CURRENT_TIMESTAMP' })
+  lastFedTime: Date;
+
+  @OneToMany(() => Unit, (unit) => unit.farmId)
+  units: Unit[];
 }

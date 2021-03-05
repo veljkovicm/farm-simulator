@@ -1,13 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Farm } from './entities/farm.entity';
+import { Unit } from '../units/entities/unit.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Between, In, Repository } from 'typeorm';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class FarmsService {
   constructor(
     @InjectRepository(Farm)
-    private readonly farmsRepository: Repository<Farm>
+    private readonly farmsRepository: Repository<Farm>,
+    @InjectRepository(Unit)
+    private readonly unitsRepository: Repository<Unit>
   ) {}
 
   async addFarm(name: string) {
@@ -28,5 +32,24 @@ export class FarmsService {
       throw new NotFoundException(`Farm ${farmId} not found`);
     }
     return farm;
+  }
+
+  // @Cron('* * * * * *')
+  async handleFarmFeeding() {
+    const farms = await this.farmsRepository.find();
+
+    const farmIds = farms
+      .filter((farm) => {
+        const secSinceLastFed = (new Date().getTime() - farm.lastFedTime.getTime()) / 1000;
+        return secSinceLastFed > 60;
+      })
+      .map(({ id }) => id);
+
+    return this.unitsRepository
+      .createQueryBuilder()
+      .update()
+      .set({ lastFedTime: new Date(), health: () => "health + ((100 - health) / 2)" })
+      .where({ farmId: In(farmIds), health: Between(0, 100)})
+      .execute()
   }
 }

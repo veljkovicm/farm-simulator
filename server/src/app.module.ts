@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { FarmsModule } from './farms/farms.module';
 import { UnitsModule } from './units/units.module';
 import { BuildingsModule } from './buildings/buildings.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { BuildingsModule } from './buildings/buildings.module';
     UnitsModule,
     BuildingsModule,
     TypeOrmModule.forRoot(),
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],
