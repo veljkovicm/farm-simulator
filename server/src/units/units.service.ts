@@ -18,8 +18,6 @@ export class UnitsService {
   async addUnit(buildingId) {
     const building = await this.buildingsRepository.findOne(buildingId);
 
-    // if !building...
-    
     const unit = await this.unitsRepository.create({
       buildingId: building.id,
       name: building.farmUnit,
@@ -30,7 +28,12 @@ export class UnitsService {
   }
 
   async getUnits(buildingId: string) {
-    return this.unitsRepository.find({ buildingId });
+    return this.unitsRepository.find({ 
+      where: {buildingId},
+      order: {
+        createdAt: 'DESC'
+      },
+    });
   }
 
   async getSingleProduct(productId: string) {

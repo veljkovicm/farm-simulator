@@ -25,4 +25,7 @@ export class Building {
 
   @OneToMany(() => Unit, (unit) => unit.buildingId)
   units: Unit[];
+
+  @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 }

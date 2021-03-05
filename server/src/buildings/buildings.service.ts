@@ -18,8 +18,6 @@ export class BuildingService {
     name: string,
     farmUnit: string // add DTOs?
   ) {
-    // check if farm exists first
-
     const building = this.buildingRepository.create({
       farmId,
       name,
@@ -32,6 +30,9 @@ export class BuildingService {
   async getBuildings(farmId) {
     const farms = await this.buildingRepository.find({
       where: { farmId },
+      order: {
+        createdAt: 'DESC'
+      },
       relations: ['units']
     });
 
@@ -41,6 +42,9 @@ export class BuildingService {
   async getBuildingFarmUnits(productId: string) {
     const building = await this.buildingRepository.findOne(productId, {
       relations: ['units'],
+      order: {
+        createdAt: 'DESC'
+      },
     });
 
     if (!building) {

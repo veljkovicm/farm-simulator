@@ -23,4 +23,7 @@ export class Farm {
 
   @OneToMany(() => Unit, (unit) => unit.farmId)
   units: Unit[];
+
+  @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 }

@@ -27,12 +27,19 @@ export class FarmsService {
   }
 
   async getFarms() {
-    return this.farmsRepository.find();
+    return this.farmsRepository.find({
+      order: {
+        createdAt: 'DESC'
+      },
+    });
   }
 
   async getFarmBuildings(farmId: string) {
     const farm = await this.farmsRepository.findOne(farmId, {
       relations: ['buildings'],
+      order: {
+        createdAt: 'DESC'
+      },
     });
 
     if (!farm) {
