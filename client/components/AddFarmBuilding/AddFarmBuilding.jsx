@@ -26,12 +26,11 @@ const AddBuildingInput = ({ addBuilding, farmId }) => {
       setName('');
       setFarmUnit('');
     });
-
   }
 
   return (
     <div style={{ marginBottom: '20px'}}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <TextField
           id="standard-basic"
           label="Building name"

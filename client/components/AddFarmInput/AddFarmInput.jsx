@@ -28,7 +28,7 @@ const AddFarmInput = ({ addFarm }) => {
 
   return (
     <div>
-      <form  style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
+      <form  onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px'}}>
         <TextField id="standard-basic" label="Farm name" value={name} onChange={handleChange} />
         <Button variant="contained" color="primary"  onClick={handleSubmit}>Add Farm</Button>
       </form>
