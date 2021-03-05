@@ -1,14 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import { submitFeedUnit } from './actions';
 import { feedUnit } from '../../redux/actions/buildings';
 import { connect } from 'react-redux/';
 
 const BuildingUnits = ({ units, feedUnit }) => {
-  console.log({units});
-
-
   const handleClick = async (id, i) => {
     submitFeedUnit(id).then((res) => {
       if(!res.error) {
@@ -18,48 +14,31 @@ const BuildingUnits = ({ units, feedUnit }) => {
   }
 
   let unitsMarkup = "This building doesn' have any units yet";
-  console.log('UNITS', units);
+
   if(units.length) {
     unitsMarkup = units.map((unit, i) => {
       return <div key={unit.id}>
         <span>{unit.name}</span>
         <span>{unit.health}</span>
-        
         <Button
           variant="contained"
           color="primary"
-          onClick={() => handleClick(unit.id, i)}  
+          onClick={() => handleClick(unit.id, i)}
+          disabled={unit.health === 0 || unit.health === 100}
         >
-          FEED UNIT
-          </Button>
+          {unit.health === 0 ? 'Dead' : unit.health === 100 ? 'Fully fed' : 'Feed unit'}
+        </Button>
       </div>
     }) 
   }
 
 
   return (
-      <div>
-        {unitsMarkup}
-        {/* {units.map((unit, i) => {
-          return <div key={unit.id}>
-            <span>{unit.name}</span>
-            <span>{unit.health}</span>
-            
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleClick(unit.id, i)}  
-            >
-              FEED UNIT
-              </Button>
-          </div>
-        }) } */}
-      </div>
-
+    <div>
+      {unitsMarkup}
+    </div>
   )
 }
-
-
 
 
 const mapDispatchToProps = {
