@@ -33,11 +33,11 @@ export class Unit {
   @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
+
+  // Hooks
   @BeforeInsert()
-  setId() {
+  setHealth() {
     this.health = getRandomHealth();
   }
-
-
 }
 
