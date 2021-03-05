@@ -15,7 +15,14 @@ export class FarmsService {
   ) {}
 
   async addFarm(name: string) {
+    const alreadyExists = await this.farmsRepository.findOne({ name });
+
+    if(alreadyExists) {
+      return { error: 'There\' already a farm with this name!'}
+    }
+
     const farm = await this.farmsRepository.create({ name });
+
     return this.farmsRepository.save(farm);
   }
 

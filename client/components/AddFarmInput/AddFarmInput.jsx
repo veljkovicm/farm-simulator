@@ -18,7 +18,10 @@ const AddFarmInput = ({ addFarm }) => {
 
     submitFarm(name)
     .then((res) => {
-      addFarm({ name: res.name, id: res.id });
+      if(!res.error) {
+        addFarm({ name: res.name, id: res.id });
+      }
+      console.log(res.error);
       setName('');
     });
 
@@ -27,8 +30,8 @@ const AddFarmInput = ({ addFarm }) => {
   return (
     <div>
       <form >
-        <TextField id="standard-basic" label="Standard" value={name} onChange={handleChange} />
-        <Button variant="contained" color="primary"  onClick={handleSubmit}>Primary</Button>
+        <TextField id="standard-basic" label="Farm name" value={name} onChange={handleChange} />
+        <Button variant="contained" color="primary"  onClick={handleSubmit}>Add Farm</Button>
       </form>
     </div>
   )
